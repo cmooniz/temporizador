@@ -1,0 +1,36 @@
+<button id="start-pause">Start</button>
+<button id="reset">Reset</button>
+<p id="time" style="color: black;">0</p>
+
+<script>
+let seconds = 0;
+let timerId;
+
+document.getElementById("start-pause").addEventListener("click", function() {
+  if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+    this.innerHTML = "Start";
+  } else {
+    timerId = setInterval(function() {
+      seconds++;
+      document.getElementById("time").innerHTML = seconds;
+      if (seconds === 45) {
+        clearInterval(timerId);
+        timerId = null;
+        document.getElementById("time").style.color = "red";
+      }
+    }, 1000);
+    this.innerHTML = "Pause";
+  }
+});
+
+document.getElementById("reset").addEventListener("click", function() {
+  clearInterval(timerId);
+  timerId = null;
+  seconds = 0;
+  document.getElementById("time").innerHTML = "0";
+  document.getElementById("time").style.color = "black";
+  document.getElementById("start-pause").innerHTML = "Start";
+});
+</script>
